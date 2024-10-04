@@ -1,0 +1,44 @@
+# Modelo Lógico do Banco de Dados
+
+## Tabelas
+
+1. Clientes
+id_cliente (PK): INT
+razao_social: VARCHAR
+estado (FK): VARCHAR 
+
+2. Telefones
+id_telefone (PK): INT
+id_cliente (FK): INT
+numero: VARCHAR
+tipo: VARCHAR
+
+3. Estados
+codigo_estado (PK): VARCHAR
+nome_estado: VARCHAR
+
+
+## Relacionamentos
+Um cliente pode ter vários telefones (1) - relacionamento entre Clientes e Telefones.
+Cada cliente está associado a um estado (N:1) - relacionamento entre Clientes e Estados.
+
+Clientes (id_cliente PK) --------< Telefones (id_telefone PK, id_cliente FK)
+      |
+      |
+      |
+ Estados (codigo_estado PK)
+
+
+## Comando SQL para Busca
+A consulta SQL que traz a razão social e os telefones de todos os clientes do estado de São Paulo seria:
+
+SELECT 
+    c.id_cliente, 
+    c.razao_social, 
+    t.numero 
+FROM 
+    Clientes c 
+JOIN 
+    Telefones t ON c.id_cliente = t.id_cliente 
+WHERE 
+    c.estado = 'SP';
